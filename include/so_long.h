@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/13 22:40:52 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/13 23:19:19 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 # define SO_LONG_H
 
 # ifndef HEIGHT
-#  define HEIGHT 200
+#  define HEIGHT 64
 # endif
 
 # ifndef WIDTH
-#  define WIDTH 400
+#  define WIDTH 64
 # endif
 
 // PATH IMAGES
@@ -46,7 +46,7 @@ typedef struct s_map
 typedef struct s_images
 {
 	mlx_image_t	*background;
-	mlx_image_t	*walls;
+	mlx_texture_t	*wall;
 	mlx_image_t	*portal;
 	mlx_image_t	*jack;
 	mlx_image_t	*gift;
@@ -67,5 +67,6 @@ void		matrix(t_so_long *data);
 void		ffree(t_so_long *data);
 void		init_game(t_so_long *data);
 void		count_x_y(t_so_long *data);
-void		draw_walls(t_so_long *data);
+void		draw_walls(t_so_long *data, int width, int height);
+void		create_image(t_so_long *data,mlx_image_t **image, char *path, int width, int height);
 #endif

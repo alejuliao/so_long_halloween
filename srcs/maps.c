@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/13 22:43:33 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/13 23:30:52 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,33 +60,32 @@ void count_x_y(t_so_long *data)
 	columns = ft_strlen(data->map.matrix[lines]);
 	while(data->map.matrix[lines])
 		++lines;
-	data->map.column = columns;
-	data->map.line = lines;
+	data->map.column = lines;
+	data->map.line = columns;
 	ft_printf("lines %d\n",data->map.line);	
 	ft_printf("columns %d\n",data->map.column);	
 };
 
-void draw_walls(t_so_long *data)
+void draw_wall(t_so_long *data, int width, int height)
 {
 	int	x;
 	int y;
-	mlx_texture_t	*texture;
-	mlx_image_t *jack;
 
 	x = 1;
 	y = 1;
 
-printf("%p\n",data->images.walls);
+	mlx_image_to_window(data->mlx, data->images.background, 0, 0);
+	mlx_resize_image(data->images.background, width,  height);
+	mlx_resize_image(data->images.wall, 64,  64);
+
 	while(x != data->map.line + 1)
 	{
 		if(x == 1 || x == data->map.column)
-			mlx_image_to_window(data->mlx, data->images.walls, (x*64) -64, (y*64)-64);
+			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
 		else if(x == 1 || x == data->map.line)
-			mlx_image_to_window(data->mlx, data->images.walls, (x*64) -64, (y*64)-64);
+			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
 		else if(y == 1 || y == data->map.column)
-			mlx_image_to_window(data->mlx, data->images.walls, (x*64) -64, (y*64)-64);
-		else
-			mlx_image_to_window(data->mlx, data->images.background, (x*64) -64, (y*64)-64);
+			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
 		if(++y > data->map.column)
 		{
 			y = 1;
@@ -99,16 +98,16 @@ printf("%p\n",data->images.walls);
 }
 void init_game(t_so_long *data)
 {
+	// mlx_texture_t	*texture;
 	mlx_texture_t	*logo;
-	mlx_image_t	*texture;
-	mlx_image_t *img;
-	mlx_image_t *jack;
+	// mlx_image_t *img;
+	// mlx_image_t *jack;
 	int	height;
 	int width;
 	
 
-	height = 320;
-	width = 1000;
+	height = data->map.column * 64;
+	width = data->map.line * 64;
 
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
 	//ICON
@@ -116,22 +115,34 @@ void init_game(t_so_long *data)
 	mlx_set_icon(data->mlx, logo);
 	
 	//BACKGROUND
-	texture = mlx_load_png(BACKGROUND);
-	data->images.background = mlx_texture_to_image(data->mlx, texture);
-	mlx_resize_image(img, 64,  64);
-	mlx_delete_texture(texture);
+	// texture = mlx_load_png(BACKGROUND);
+	// img = mlx_texture_to_image(data->mlx, texture);
+	// mlx_resize_image(img, (unsigned int)width,  (unsigned int)height);
+	// mlx_delete_texture(texture);
 	// mlx_image_to_window(data->mlx, img, 0, 0);
-    
-	texture = mlx_load_png(WALL);
-	data->images.walls = mlx_texture_to_image(data->mlx, texture);
-	mlx_resize_image(img, (unsigned int)width,  (unsigned int)height);
-	mlx_delete_texture(texture);
+	create_image(data, &data->images.background, BACKGROUND, width, height);
+	create_image(data, &data->images.wall, WALL, 64, 64);
+
+
+
+	// texture = mlx_load_png(WALL);
+	// data->images.wall = mlx_texture_to_image(data->mlx, texture);
+	// mlx_delete_texture(texture);
 	
 	// mlx_image_to_window(data->mlx, jack, 0, 0);
 	// texture = mlx_load_png(JACK);
 	// jack = mlx_texture_to_image(data->mlx, texture);
 	// mlx_image_to_window(data->mlx, jack,64,0);
 	
-	draw_walls(data);
+	draw_wall(data, width, height);
 	mlx_loop(data->mlx);
+}
+
+void create_image(t_so_long *data,mlx_image_t **image, char *path, int width,int height)
+{
+	mlx_texture_t	*texture;
+	
+	texture = mlx_load_png(path);
+	*image = mlx_texture_to_image(data->mlx, texture);
+	mlx_delete_texture(texture);
 }
