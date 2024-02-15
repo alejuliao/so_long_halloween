@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/13 23:30:52 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/14 13:32:39 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void count_x_y(t_so_long *data)
 	columns = ft_strlen(data->map.matrix[lines]);
 	while(data->map.matrix[lines])
 		++lines;
-	data->map.column = lines;
-	data->map.line = columns;
+	data->map.column = columns;
+	data->map.line = lines;
 	ft_printf("lines %d\n",data->map.line);	
 	ft_printf("columns %d\n",data->map.column);	
 };
@@ -71,13 +71,20 @@ void draw_wall(t_so_long *data, int width, int height)
 	int	x;
 	int y;
 
-	x = 1;
-	y = 1;
+	x = 0;
+	y = 0;
 
 	mlx_image_to_window(data->mlx, data->images.background, 0, 0);
 	mlx_resize_image(data->images.background, width,  height);
 	mlx_resize_image(data->images.wall, 64,  64);
 
+	// while(data->map.matrix[x][y] != NULL)
+	// {
+	// 	ft_printf("oi %d\n",x);
+	// 	x++;
+	// }
+
+// works, but
 	while(x != data->map.line + 1)
 	{
 		if(x == 1 || x == data->map.column)
