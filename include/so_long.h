@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/13 23:19:19 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/21 21:44:13 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_map
 typedef struct s_images
 {
 	mlx_image_t	*background;
-	mlx_texture_t	*wall;
+	mlx_image_t	*wall;
 	mlx_image_t	*portal;
 	mlx_image_t	*jack;
 	mlx_image_t	*gift;
@@ -69,4 +69,5 @@ void		init_game(t_so_long *data);
 void		count_x_y(t_so_long *data);
 void		draw_walls(t_so_long *data, int width, int height);
 void		create_image(t_so_long *data,mlx_image_t **image, char *path, int width, int height);
+int			checkmap(char c);
 #endif

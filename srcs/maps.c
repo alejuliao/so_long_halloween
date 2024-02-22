@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/14 13:32:39 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/21 22:02:47 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 
 void	ffree(t_so_long *data)
 {
-	int	i;
+	int	i; //fazer um free pra quando der erro de leitura
 
 	i = 0;
 	while(data->map.matrix[i])
+	{
+		// ft_printf("%s",data->map.matrix[i]);
 		free(data->map.matrix[i++]);
+	}
+		// ft_printf("aqui%s",data->map.matrix[i]);
 	free(data->map.matrix);
+	mlx_terminate(data->mlx);
 }
 void	read_map(t_so_long *data, char *filen)
 {
@@ -41,12 +46,12 @@ void	read_map(t_so_long *data, char *filen)
 	}
     data->map.matrix = ft_split(map,'\n');
     free(map);
-	int i = 0;
-	while(data->map.matrix[i])
-	{
-		ft_printf("%s\n",data->map.matrix[i++]);
-	}
-	
+	// int i = 0;
+	// while(data->map.matrix[i])
+	// {
+	// 	ft_printf("%s\n",data->map.matrix[i++]);
+	// 	// if(!ft_strrchr((char *)(data->map.matrix[i]),'10PCE'));
+	// }
     close(data->fd);
 	count_x_y(data);
 }
@@ -55,18 +60,38 @@ void count_x_y(t_so_long *data)
 {
 	int	lines;
 	int	columns;
+	int	columnsf;
 	
 	lines = 0;
-	columns = ft_strlen(data->map.matrix[lines]);
-	while(data->map.matrix[lines])
-		++lines;
-	data->map.column = columns;
-	data->map.line = lines;
-	ft_printf("lines %d\n",data->map.line);	
-	ft_printf("columns %d\n",data->map.column);	
+	columns = 0;
+	// columns = ft_strlen(data->map.matrix[lines]);
+	columnsf = ft_strlen(data->map.matrix[lines]);
+	// while(data->map.matrix[lines])
+	// {
+	// 	while(data->map.matrix[lines][columns])
+	// 	{
+	// 		if(!checkmap((data->map.matrix[lines][columns])))
+	// 		{
+	// 			ft_printf("foi%c\n", data->map.matrix[lines][columns]);
+	// 			ffree(data);
+	// 		}
+	// 		columns++;
+	// 	}
+	// 	ft_printf("\n");
+	// 	columns = 0;
+	// 	lines++;
+	// }
+	data->map.column = 5;
+	data->map.line = columnsf;
 };
+int	checkmap(char c)
+{
+	if(ft_strchr("10CPE", c))
+		return(1);
+	return (0);
+}
 
-void draw_wall(t_so_long *data, int width, int height)
+void draw_walls(t_so_long *data, int width, int height)
 {
 	int	x;
 	int y;
@@ -85,22 +110,31 @@ void draw_wall(t_so_long *data, int width, int height)
 	// }
 
 // works, but
-	while(x != data->map.line + 1)
+	// while(x != data->map.line + 1)
+	// {
+	// 	if(x == 1 || x == data->map.line)
+	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
+	// 	// else if(x == 1 || x == data->map.line)
+	// 		// mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
+	// 	else if(y == 1 || y == data->map.column)
+	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
+	// 	if(++y > data->map.column)
+	// 	{
+	// 		y = 1;
+	// 		x++;
+	// 		ft_putchar_fd('\n',1);
+	// 	}
+	// }
+	while(data->map.matrix[x])
 	{
-		if(x == 1 || x == data->map.column)
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-		else if(x == 1 || x == data->map.line)
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		else if(y == 1 || y == data->map.column)
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		if(++y > data->map.column)
+		while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
 		{
-			y = 1;
-			x++;
-			ft_putchar_fd('\n',1);
+			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
+			y++;
 		}
+		y = 0;
+		x++;
 	}
-	
 	
 }
 void init_game(t_so_long *data)
@@ -141,7 +175,7 @@ void init_game(t_so_long *data)
 	// jack = mlx_texture_to_image(data->mlx, texture);
 	// mlx_image_to_window(data->mlx, jack,64,0);
 	
-	draw_wall(data, width, height);
+	draw_walls(data, width, height);
 	mlx_loop(data->mlx);
 }
 
