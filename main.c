@@ -7,7 +7,7 @@
 
 #define MALLOC_ERROR 1
 #define WIDTH   400
-#define HEIGHT  400 
+#define HEIGHT  400
 
 int main()
 {
@@ -27,7 +27,7 @@ int main()
 //     int     fd;
 //     char    *line;
 //     int     lines;
-    
+
 //     // lines = 1;
 //     // fd = open("filetext.txt", O_RDONLY);
 //     // while((line = get_next_line(fd)))

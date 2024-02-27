@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/21 22:02:47 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/27 20:49:57 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	read_map(t_so_long *data, char *filen)
 	data->file = filen;
 	data->fd = open(data->file, O_RDONLY);
 	map = ft_strdup("");
-	while (line = get_next_line(data->fd))
+	while ((line = get_next_line(data->fd)))
 	{
 		temp = ft_strjoin(map, line);
 		free(map);
@@ -61,7 +61,7 @@ void count_x_y(t_so_long *data)
 	int	lines;
 	int	columns;
 	int	columnsf;
-	
+
 	lines = 0;
 	columns = 0;
 	// columns = ft_strlen(data->map.matrix[lines]);
@@ -125,18 +125,36 @@ void draw_walls(t_so_long *data, int width, int height)
 	// 		ft_putchar_fd('\n',1);
 	// 	}
 	// }
-	while(data->map.matrix[x])
-	{
-		while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
-		{
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	
+	// while(data->map.matrix[x])
+	// {
+	// 	while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
+	// 	{
+	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
+	// 		y++;
+	// 	}
+	// 	y = 0;
+	// 	x++;
+	// }
+
 }
+void ft_hook(void* param)
+{
+	mlx_t* mlx = (mlx_t *)param;
+
+
+	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
+		ft_printf("oi");
+		// mlx_close_window(mlx);
+	// if (mlx_is_key_down(mlx, MLX_KEY_UP))
+	// 	image->instances[0].y -= 5;
+	// if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	// 	image->instances[0].y += 5;
+	// if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	// 	image->instances[0].x -= 5;
+	// if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	// 	image->instances[0].x += 5;
+}
+
 void init_game(t_so_long *data)
 {
 	// mlx_texture_t	*texture;
@@ -145,7 +163,7 @@ void init_game(t_so_long *data)
 	// mlx_image_t *jack;
 	int	height;
 	int width;
-	
+
 
 	height = data->map.column * 64;
 	width = data->map.line * 64;
@@ -154,7 +172,7 @@ void init_game(t_so_long *data)
 	//ICON
 	logo = mlx_load_png(PUMPKIN);
 	mlx_set_icon(data->mlx, logo);
-	
+
 	//BACKGROUND
 	// texture = mlx_load_png(BACKGROUND);
 	// img = mlx_texture_to_image(data->mlx, texture);
@@ -169,20 +187,21 @@ void init_game(t_so_long *data)
 	// texture = mlx_load_png(WALL);
 	// data->images.wall = mlx_texture_to_image(data->mlx, texture);
 	// mlx_delete_texture(texture);
-	
+
 	// mlx_image_to_window(data->mlx, jack, 0, 0);
 	// texture = mlx_load_png(JACK);
 	// jack = mlx_texture_to_image(data->mlx, texture);
 	// mlx_image_to_window(data->mlx, jack,64,0);
-	
+
 	draw_walls(data, width, height);
+	mlx_loop_hook(data->mlx, ft_hook, data->mlx);
 	mlx_loop(data->mlx);
 }
 
 void create_image(t_so_long *data,mlx_image_t **image, char *path, int width,int height)
 {
 	mlx_texture_t	*texture;
-	
+
 	texture = mlx_load_png(path);
 	*image = mlx_texture_to_image(data->mlx, texture);
 	mlx_delete_texture(texture);
