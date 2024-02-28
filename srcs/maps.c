@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/21 22:02:47 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/26 19:39:12 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,31 +110,31 @@ void draw_walls(t_so_long *data, int width, int height)
 	// }
 
 // works, but
-	// while(x != data->map.line + 1)
-	// {
-	// 	if(x == 1 || x == data->map.line)
-	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-	// 	// else if(x == 1 || x == data->map.line)
-	// 		// mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-	// 	else if(y == 1 || y == data->map.column)
-	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-	// 	if(++y > data->map.column)
-	// 	{
-	// 		y = 1;
-	// 		x++;
-	// 		ft_putchar_fd('\n',1);
-	// 	}
-	// }
-	while(data->map.matrix[x])
+	while(x != data->map.line + 1)
 	{
-		while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
-		{
+		if(x == 1 || x == data->map.line)
 			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-			y++;
+		// else if(x == 1 || x == data->map.line)
+			// mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
+		else if(y == 1 || y == data->map.column)
+			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
+		if(++y > data->map.column)
+		{
+			y = 1;
+			x++;
+			// ft_putchar_fd('\n',1);
 		}
-		y = 0;
-		x++;
 	}
+	// while(data->map.matrix[x])
+	// {
+	// 	while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
+	// 	{
+	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
+	// 		y++;
+	// 	}
+	// 	y = 0;
+	// 	x++;
+	// }
 	
 }
 void init_game(t_so_long *data)
@@ -176,6 +176,7 @@ void init_game(t_so_long *data)
 	// mlx_image_to_window(data->mlx, jack,64,0);
 	
 	draw_walls(data, width, height);
+	mlx_loop_hook(data->mlx, ft_hook, data->mlx);
 	mlx_loop(data->mlx);
 }
 

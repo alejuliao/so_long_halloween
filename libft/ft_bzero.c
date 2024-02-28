@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:34:15 by ajuliao-          #+#    #+#             */
-/*   Updated: 2023/10/17 19:52:34 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/02/26 18:49:53 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

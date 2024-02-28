@@ -12,7 +12,7 @@ CFLAGS =
 # -pedantic -Wconversion -g3 -DDEBUG 
 # CFLAGS = -Wall -Wextra -Werror
 INC = -I ./srcs/ -I ./MLX42/include/MLX42 
-MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -g
+MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -fsanitize=address -static-libasan -g
 
 OBJS = $(FILES:%.c=%.o)
 
@@ -34,11 +34,14 @@ clean: libclean
 libclean:
 	@make clean -C ./libft --no-print-directory 
 
-fclean: clean libfclean
+fclean: clean libfclean mlxfclean
 	rm -f $(NAME) 
 
 libfclean: 
 	@make fclean -C ./libft --no-print-directory 
+
+mlxfclean: 
+	@make clean -C ./MLX42/build --no-print-directory 
 
 re: fclean $(NAME)
 
