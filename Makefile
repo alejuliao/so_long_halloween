@@ -6,39 +6,39 @@ FILES = srcs/so_long.c\
 # B_FILES = sera.c
 
 COMPILER = gcc
-MLX = ./MLX42/build/libmlx42.a 
+MLX = ./MLX42/build/libmlx42.a
 LIBFT = ./libft/libft.a
-CFLAGS = 
-# -pedantic -Wconversion -g3 -DDEBUG 
+CFLAGS =
+# -pedantic -Wconversion -g3 -DDEBUG
 # CFLAGS = -Wall -Wextra -Werror
-INC = -I ./srcs/ -I ./MLX42/include/MLX42 
-MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -fsanitize=address -static-libasan -g
+INC = -I ./srcs/ -I ./MLX42/include/MLX42
+MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -g
 
 OBJS = $(FILES:%.c=%.o)
 
-all:$(MLX) $(LIBFT) $(NAME) 
+all:$(MLX) $(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
 	@$(COMPILER) $(CFLAGS) $(OBJS) $(INC) $(MLXFLAGS) $(LIBFT) -o $(NAME)
 
 $(LIBFT):
-	@make -C ./libft/ --no-print-directory 
+	@make -C ./libft/ --no-print-directory
 
 $(MLX):
-	cmake -S ./MLX42 -B ./MLX42/build 
-	cmake --build ./MLX42/build -j4 
+	cmake -S ./MLX42 -B ./MLX42/build
+	cmake --build ./MLX42/build -j4
 
 clean: libclean
-	rm -f $(OBJS) $(OBJS_B) 
+	rm -f $(OBJS) $(OBJS_B)
 
 libclean:
-	@make clean -C ./libft --no-print-directory 
+	@make clean -C ./libft --no-print-directory
 
 fclean: clean libfclean mlxfclean
 	rm -f $(NAME) 
 
-libfclean: 
-	@make fclean -C ./libft --no-print-directory 
+libfclean:
+	@make fclean -C ./libft --no-print-directory
 
 mlxfclean: 
 	@make clean -C ./MLX42/build --no-print-directory 
