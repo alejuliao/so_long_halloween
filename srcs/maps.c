@@ -6,13 +6,11 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/28 20:50:07 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/28 21:31:14 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
-#define BPP sizeof(int32_t)
 
 void	ffree(t_so_long *data)
 {
@@ -26,7 +24,7 @@ void	ffree(t_so_long *data)
 	}
 		// ft_printf("aqui%s",data->map.matrix[i]);
 	free(data->map.matrix);
-	mlx_terminate(data->mlx);
+	// mlx_terminate(data->mlx);
 }
 void	read_map(t_so_long *data, char *filen)
 {
@@ -46,14 +44,25 @@ void	read_map(t_so_long *data, char *filen)
 	}
     data->map.matrix = ft_split(map,'\n');
     free(map);
-	// int i = 0;
-	// while(data->map.matrix[i])
-	// {
-	// 	ft_printf("%s\n",data->map.matrix[i++]);
-	// 	// if(!ft_strrchr((char *)(data->map.matrix[i]),'10PCE'));
-	// }
+	int i = 0;
+	int f = 0;
+	while(data->map.matrix[i])
+	{
+		while(data->map.matrix[i][f])
+		{
+			if(!checkmap((char)(data->map.matrix[i][f++])))
+				{
+					ffree(data);
+					exit(1);
+				}
+		}
+		f = 0;
+		i++;
+	}
     close(data->fd);
-	count_x_y(data);
+	// count_x_y(data);
+	ffree(data);
+	exit(1);
 }
 
 void count_x_y(t_so_long *data)
@@ -86,9 +95,9 @@ void count_x_y(t_so_long *data)
 };
 int	checkmap(char c)
 {
-	if(ft_strchr("10CPE", c))
-		return(1);
-	return (0);
+	if(ft_strrchr("10CPE", c) == NULL)
+		return(0);
+	return (1);
 }
 
 void draw_walls(t_so_long *data, int width, int height)
@@ -140,18 +149,8 @@ void ft_hook(void* param)
 {
 	mlx_t* mlx = (mlx_t *)param;
 
-
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		ft_printf("oi");
-		// mlx_close_window(mlx);
-	// if (mlx_is_key_down(mlx, MLX_KEY_UP))
-	// 	image->instances[0].y -= 5;
-	// if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-	// 	image->instances[0].y += 5;
-	// if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-	// 	image->instances[0].x -= 5;
-	// if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-	// 	image->instances[0].x += 5;
+		mlx_close_window(mlx);
 }
 
 void init_game(t_so_long *data)

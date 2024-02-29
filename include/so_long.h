@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/02/26 19:14:29 by alexandreju      ###   ########.fr       */
-=======
-/*   Updated: 2024/02/27 20:20:37 by ajuliao-         ###   ########.fr       */
->>>>>>> 2df4e70affc6c6cc4b4be89df8124669ebaedeed
+/*   Updated: 2024/02/28 21:02:31 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
