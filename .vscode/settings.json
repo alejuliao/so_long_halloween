@@ -3,6 +3,9 @@
         "mlx42.h": "c",
         "libft.h": "c",
         "so_long.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "array": "c",
+        "string": "c",
+        "string_view": "c"
     }
 }

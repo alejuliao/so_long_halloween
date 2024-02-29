@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/28 21:02:31 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/28 21:35:00 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void		init_game(t_so_long *data);
 void		count_x_y(t_so_long *data);
 void		draw_walls(t_so_long *data, int width, int height);
 void		create_image(t_so_long *data,mlx_image_t **image, char *path, int width, int height);
-int			checkmap(char c);
+void		checkmap(t_so_long *data);
 void		ft_hook(void* param);
 #endif

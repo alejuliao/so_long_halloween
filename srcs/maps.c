@@ -6,7 +6,7 @@
 /*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/28 21:31:14 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/02/28 21:44:48 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,25 +44,11 @@ void	read_map(t_so_long *data, char *filen)
 	}
     data->map.matrix = ft_split(map,'\n');
     free(map);
+	checkmap(data);
 	int i = 0;
-	int f = 0;
-	while(data->map.matrix[i])
-	{
-		while(data->map.matrix[i][f])
-		{
-			if(!checkmap((char)(data->map.matrix[i][f++])))
-				{
-					ffree(data);
-					exit(1);
-				}
-		}
-		f = 0;
-		i++;
-	}
     close(data->fd);
-	// count_x_y(data);
-	ffree(data);
-	exit(1);
+	count_x_y(data);
+
 }
 
 void count_x_y(t_so_long *data)
@@ -92,12 +78,26 @@ void count_x_y(t_so_long *data)
 	// }
 	data->map.column = 5;
 	data->map.line = columnsf;
+
 };
-int	checkmap(char c)
+void	checkmap(t_so_long *data)
 {
-	if(ft_strrchr("10CPE", c) == NULL)
-		return(0);
-	return (1);
+	int i = 0;
+	int f = 0;
+	while(data->map.matrix[i])
+	{
+		while(data->map.matrix[i][f])
+		{
+			if(ft_strrchr("10CPE", data->map.matrix[i][f++]) == NULL)
+				{
+					perror("invalid map");
+					ffree(data);
+					exit(1);
+				}
+		}
+		f = 0;
+		i++;
+	}
 }
 
 void draw_walls(t_so_long *data, int width, int height)
@@ -163,10 +163,16 @@ void init_game(t_so_long *data)
 	int width;
 
 
-	height = data->map.column * 64;
-	width = data->map.line * 64;
+	// height = data->map.column * 64;
+	// width = data->map.line * 64;
+	height = 64;
+	width =  64;
 
+	ffree(data);
+	exit(1);
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
+	mlx_terminate(data->mlx);
+
 	//ICON
 	logo = mlx_load_png(PUMPKIN);
 	mlx_set_icon(data->mlx, logo);
