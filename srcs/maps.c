@@ -3,29 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/02/28 21:44:48 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/03/03 14:05:38 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	ffree(t_so_long *data)
-{
-	int	i; //fazer um free pra quando der erro de leitura
 
-	i = 0;
-	while(data->map.matrix[i])
-	{
-		// ft_printf("%s",data->map.matrix[i]);
-		free(data->map.matrix[i++]);
-	}
-		// ft_printf("aqui%s",data->map.matrix[i]);
-	free(data->map.matrix);
-	// mlx_terminate(data->mlx);
-}
 void	read_map(t_so_long *data, char *filen)
 {
 	char	*line;
@@ -46,9 +33,10 @@ void	read_map(t_so_long *data, char *filen)
     free(map);
 	checkmap(data);
 	int i = 0;
+	while (data->map.matrix[i])
+		ft_printf(">> %s\n",data->map.matrix[i++]);
     close(data->fd);
 	count_x_y(data);
-
 }
 
 void count_x_y(t_so_long *data)
@@ -84,16 +72,32 @@ void	checkmap(t_so_long *data)
 {
 	int i = 0;
 	int f = 0;
+	int	x = 4;
+
+	ft_printf("x%d\n", x);
 	while(data->map.matrix[i])
 	{
 		while(data->map.matrix[i][f])
 		{
-			if(ft_strrchr("10CPE", data->map.matrix[i][f++]) == NULL)
+			// ft_printf(">%d\n",ft_strlen(data->map.matrix[i]));
+			if(ft_strrchr("10CPE", data->map.matrix[i][f]) == NULL)
 				{
 					perror("invalid map");
 					ffree(data);
 					exit(1);
 				}
+
+			if(data->map.matrix[0][f] != '1'
+				|| data->map.matrix[i][0] != '1'
+					|| data->map.matrix[i][data->map.line] != '1'
+						|| data->map.matrix[x][f] != '1')
+			{
+				ft_printf(">>>>>%c\n", data->map.matrix[0][f]);
+				perror("invalid map");
+				ffree(data);
+				exit(1);
+			}
+			f++;
 		}
 		f = 0;
 		i++;
@@ -145,12 +149,19 @@ void draw_walls(t_so_long *data, int width, int height)
 	// 	x++;
 	// }
 }
-void ft_hook(void* param)
+void ft_hook(mlx_key_data_t key, void *param)
 {
-	mlx_t* mlx = (mlx_t *)param;
+	mlx_t* mlxx = (mlx_t *)param;
+	t_so_long	*data;
 
-	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
+	data = (t_so_long*)param;
+	if (key.key == MLX_KEY_ESCAPE)
+	{
+		ffree(data);
+		mlx_terminate(data->mlx);
+		exit(0);
+		// mlx_close_window(mlx);
+	}
 }
 
 void init_game(t_so_long *data)
@@ -163,15 +174,10 @@ void init_game(t_so_long *data)
 	int width;
 
 
-	// height = data->map.column * 64;
-	// width = data->map.line * 64;
-	height = 64;
-	width =  64;
+	height = data->map.column * 64;
+	width = data->map.line * 64;
 
-	ffree(data);
-	exit(1);
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
-	mlx_terminate(data->mlx);
 
 	//ICON
 	logo = mlx_load_png(PUMPKIN);
@@ -198,7 +204,7 @@ void init_game(t_so_long *data)
 	// mlx_image_to_window(data->mlx, jack,64,0);
 
 	draw_walls(data, width, height);
-	mlx_loop_hook(data->mlx, ft_hook, data->mlx);
+	mlx_key_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);
 }
 

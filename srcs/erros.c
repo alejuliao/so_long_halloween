@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   erros.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 20:40:06 by alexandreju       #+#    #+#             */
-/*   Upda2ted: 2024/02/12 11:09:41 by alexandreju      ###   ########.fr       */
+/*   Created: 2024/03/03 14:04:44 by laj               #+#    #+#             */
+/*   Updated: 2024/03/03 14:06:12 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	errors(char *txt)
+void	ffree(t_so_long *data)
 {
-	ft_printf("%s\n", txt);
-	exit(1);
-}
+	int	i; //fazer um free pra quando der erro de leitura
 
-int	main(int argc, char **argv)
-{
-	t_so_long	data;
-
-	if (argc != 2)
-		errors("The number of arguments must be 2");
-	read_map(&data, argv[1]);
-	init_game(&data);
-	ffree(&data);
-	return (0);
+	i = 0;
+	while(data->map.matrix[i])
+	{
+		free(data->map.matrix[i++]);
+	}
+	free(data->map.matrix);
+	// mlx_terminate(data->mlx);
 }

@@ -6,21 +6,21 @@
 #include "MLX42/include/MLX42/MLX42.h"
 
 #define MALLOC_ERROR 1
-#define WIDTH   400
-#define HEIGHT  400
+#define WIDTH	400
+#define HEIGHT	400
 
 int main()
 {
-    void    *mlx_ptr;
+    void	*mlx_ptr;
 
-    mlx_ptr = mlx_init(WIDTH,HEIGHT, "so_long" ,true);
-    if (NULL == mlx_ptr)
-        return (1);
+	mlx_ptr = mlx_init(WIDTH,HEIGHT, "so_long" ,true);
+	if (NULL == mlx_ptr)
+		return (1);
 
-    mlx_terminate(mlx_ptr);
+	mlx_terminate(mlx_ptr);
 
-    free(mlx_ptr); ptr:
-    return(0);
+	free(mlx_ptr); ptr:
+	return(0);
 }
 // int main(void)
 // {

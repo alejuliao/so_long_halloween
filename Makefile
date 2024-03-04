@@ -1,7 +1,8 @@
 NAME = so_long
 
 FILES = srcs/so_long.c\
-	srcs/maps.c
+	srcs/maps.c \
+	srcs/erros.c
 
 # B_FILES = sera.c
 
@@ -35,13 +36,13 @@ libclean:
 	@make clean -C ./libft --no-print-directory
 
 fclean: clean libfclean mlxfclean
-	rm -f $(NAME) 
+	rm -f $(NAME)
 
 libfclean:
 	@make fclean -C ./libft --no-print-directory
 
-mlxfclean: 
-	@make clean -C ./MLX42/build --no-print-directory 
+mlxfclean:
+	@make clean -C ./MLX42/build --no-print-directory
 
 re: fclean $(NAME)
 
