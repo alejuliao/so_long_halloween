@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/03 14:05:38 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/04 20:50:41 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
 
 void	read_map(t_so_long *data, char *filen)
 {
@@ -31,48 +30,56 @@ void	read_map(t_so_long *data, char *filen)
 	}
     data->map.matrix = ft_split(map,'\n');
     free(map);
+	count_x_y(data);
 	checkmap(data);
 	int i = 0;
 	while (data->map.matrix[i])
 		ft_printf(">> %s\n",data->map.matrix[i++]);
     close(data->fd);
-	count_x_y(data);
 }
 
 void count_x_y(t_so_long *data)
 {
 	int	lines;
 	int	columns;
-	int	columnsf;
 
 	lines = 0;
-	columns = 0;
-	// columns = ft_strlen(data->map.matrix[lines]);
-	columnsf = ft_strlen(data->map.matrix[lines]);
-	// while(data->map.matrix[lines])
-	// {
-	// 	while(data->map.matrix[lines][columns])
-	// 	{
-	// 		if(!checkmap((data->map.matrix[lines][columns])))
-	// 		{
-	// 			ft_printf("foi%c\n", data->map.matrix[lines][columns]);
-	// 			ffree(data);
-	// 		}
-	// 		columns++;
-	// 	}
-	// 	ft_printf("\n");
-	// 	columns = 0;
-	// 	lines++;
-	// }
-	data->map.column = 5;
-	data->map.line = columnsf;
-
+	//columns = 0;
+	columns = ft_strlen(data->map.matrix[lines]);
+	
+	//	columnsf = ft_strlen(data->map.matrix[lines]);
+	while(data->map.matrix[lines])
+	{
+		// ft_printf(">line>>%s\n",data->map.matrix[lines]);
+		// ft_printf(">line?>>%c\n",data->map.matrix[lines][columns]);
+		// while(data->map.matrix[lines][columns])
+		// {
+		// 	// ft_printf(">column>>%c\n",data->map.matrix[lines++][columns]);
+		// 	ft_printf(">column>>%c\n",data->map.matrix[lines++][columns]);
+		// 	columns++;
+		// }
+		// break;
+		// while(data->map.matrix[lines][columns])
+		// {
+		// 	if(!checkmap((data->map.matrix[lines][columns])))
+		// 	{
+		// 		ft_printf("foi%c\n", data->map.matrix[lines][columns]);
+		// 		ffree(data);
+		// 	}
+		// 	columns++;
+		// }
+		// ft_printf("\n");
+		// columns = 0;
+		lines++;
+	}
+	data->map.line = lines;
+	data->map.column = columns;
 };
 void	checkmap(t_so_long *data)
 {
 	int i = 0;
 	int f = 0;
-	int	x = 4;
+	int	x = data->map.line - 1;
 
 	ft_printf("x%d\n", x);
 	while(data->map.matrix[i])
@@ -89,8 +96,9 @@ void	checkmap(t_so_long *data)
 
 			if(data->map.matrix[0][f] != '1'
 				|| data->map.matrix[i][0] != '1'
-					|| data->map.matrix[i][data->map.line] != '1'
-						|| data->map.matrix[x][f] != '1')
+					// || data->map.matrix[i][data->map.line] != '1'
+					// 	|| data->map.matrix[x][f] != '1'
+						)
 			{
 				ft_printf(">>>>>%c\n", data->map.matrix[0][f]);
 				perror("invalid map");
@@ -123,15 +131,15 @@ void draw_walls(t_so_long *data, int width, int height)
 	// }
 
 // works, but
-	while(x != data->map.line + 1)
+	while(x != data->map.column + 1)
 	{
-		if(x == 1 || x == data->map.line)
+		if(x == 1 || x == data->map.column)
 			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
 		// else if(x == 1 || x == data->map.line)
 			// mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		else if(y == 1 || y == data->map.column)
+		else if(y == 1 || y == data->map.line)
 			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		if(++y > data->map.column)
+		if(++y > data->map.line)
 		{
 			y = 1;
 			x++;
@@ -174,8 +182,8 @@ void init_game(t_so_long *data)
 	int width;
 
 
-	height = data->map.column * 64;
-	width = data->map.line * 64;
+	width = data->map.column * 64;
+	height = data->map.line * 64;
 
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
 
@@ -208,7 +216,7 @@ void init_game(t_so_long *data)
 	mlx_loop(data->mlx);
 }
 
-void create_image(t_so_long *data,mlx_image_t **image, char *path, int width,int height)
+void create_image(t_so_long *data,mlx_image_t **image, char *path, int width, int height)
 {
 	mlx_texture_t	*texture;
 
