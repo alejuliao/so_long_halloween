@@ -2,7 +2,9 @@ NAME = so_long
 
 FILES = srcs/so_long.c\
 	srcs/maps.c \
-	srcs/erros.c
+	srcs/erros.c \
+	srcs/game.c \
+	srcs/keys.c
 
 # B_FILES = sera.c
 
@@ -12,7 +14,7 @@ LIBFT = ./libft/libft.a
 CFLAGS =
 # -pedantic -Wconversion -g3 -DDEBUG
 # CFLAGS = -Wall -Wextra -Werror
-INC = -I ./srcs/ -I ./MLX42/include/MLX42
+INC = -I ./srcs/ -I ./MLX42/include/MLX42   
 MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -g
 
 OBJS = $(FILES:%.c=%.o)

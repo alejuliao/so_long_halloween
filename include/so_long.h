@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/03 14:05:07 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/05 20:10:54 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ typedef struct s_so_long
 }				t_so_long;
 
 // functions
-void			read_map(t_so_long *data, char *filen);
-void			matrix(t_so_long *data);
-void			ffree(t_so_long *data);
-void			init_game(t_so_long *data);
-void			count_x_y(t_so_long *data);
-void			draw_walls(t_so_long *data, int width, int height);
-void			create_image(t_so_long *data, mlx_image_t **image, char *path,
-					int width, int height);
-void			checkmap(t_so_long *data);
-void			ft_hook(mlx_key_data_t key, void *param);
+void	read_map(t_so_long *data, char *filen);
+void	matrix(t_so_long *data);
+void	ffree(t_so_long *data);
+void	ft_hook(mlx_key_data_t key, void *param);
+void	init_game(t_so_long *data);
+void	count_x_y(t_so_long *data);
+void	draw_walls(t_so_long *data, int width, int height);
+void	create_image(t_so_long *data, mlx_image_t **image, char *path, int width, int height);
+void	checkmap(t_so_long *data);
 #endif
