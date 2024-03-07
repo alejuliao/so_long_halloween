@@ -3,29 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/05 20:10:54 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/06 21:04:29 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# ifndef HEIGHT
-#  define HEIGHT 64
-# endif
+// # ifndef HEIGHT
+// #  define HEIGHT 64
+// # endif
 
-# ifndef WIDTH
-#  define WIDTH 64
-# endif
+// # ifndef WIDTH
+// #  define WIDTH 64
+// # endif
 
-// PATH IMAGES
-# define BACKGROUND "./assets/background.png"
-# define JACK "./assets/jackright.png"
-# define PUMPKIN "./assets/pumpkin.png"
-# define WALL "./assets/wall.png"
 
 # include "../MLX42/include/MLX42/MLX42.h"
 # include "../libft/libft.h"
@@ -34,6 +29,15 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+
+// PATH IMAGES
+# define BACKGROUND "./assets/background.png"
+# define JACK "./assets/jackright.png"
+# define PUMPKIN "./assets/pumpkin.png"
+# define WALL "./assets/wall.png"
+# define GIFT "./assets/gift.png"
+# define TREE "./assets/tree.png"
 
 // a ordem da declaração tbm importa aqui, se o map estiver embaixo,	n irá funcionar
 typedef struct s_map
@@ -50,6 +54,7 @@ typedef struct s_images
 	mlx_image_t	*portal;
 	mlx_image_t	*jack;
 	mlx_image_t	*gift;
+	mlx_image_t	*tree;
 }				t_images;
 
 typedef struct s_so_long
@@ -69,6 +74,6 @@ void	ft_hook(mlx_key_data_t key, void *param);
 void	init_game(t_so_long *data);
 void	count_x_y(t_so_long *data);
 void	draw_walls(t_so_long *data, int width, int height);
-void	create_image(t_so_long *data, mlx_image_t **image, char *path, int width, int height);
-void	checkmap(t_so_long *data);
+void	create_image(t_so_long *data, mlx_image_t **image, char *path);
+void	my_erros(t_so_long *data, char *message);
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:50:30 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/05 20:11:28 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/06 21:09:18 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ void ft_hook(mlx_key_data_t key, void *param)
 		mlx_terminate(data->mlx);
 		exit(0);
 		// mlx_close_window(mlx);
+	}
+	if ((key.key == MLX_KEY_W || key.key == MLX_KEY_UP)
+		&& (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	{
+		ft_printf("up");
 	}
 }
 

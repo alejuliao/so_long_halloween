@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/05 20:05:53 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/06 20:56:28 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	read_map(t_so_long *data, char *filen)
     data->map.matrix = ft_split(map,'\n');
     free(map);
 	count_x_y(data);
-	checkmap(data);
+	// exit(0);
+	// checkmap(data);
 	int i = 0;
 	while (data->map.matrix[i])
 		ft_printf(">> %s\n",data->map.matrix[i++]);
@@ -42,49 +43,26 @@ void count_x_y(t_so_long *data)
 {
 	int	lines;
 	int	columns;
-
+	int	f;
+	
+	
+	f=0;
 	lines = 0;
 	columns = ft_strlen(data->map.matrix[lines]);
 	while(data->map.matrix[lines])
+	{
+		while(data->map.matrix[lines][f])
+		{
+			if(ft_strrchr("10CPE", data->map.matrix[lines][f]) == NULL)
+				my_erros(data, "Invalid map");
+			f++;
+		}
+		f=0;
 		lines++;
+	}
 	data->map.line = lines;
 	data->map.column = columns;
 };
-void	checkmap(t_so_long *data)
-{
-	int i = 0;
-	int f = 0;
-	int	x = data->map.line - 1;
-
-	ft_printf("x%d\n", x);
-	while(data->map.matrix[i])
-	{
-		while(data->map.matrix[i][f])
-		{
-			// ft_printf(">%d\n",ft_strlen(data->map.matrix[i]));
-			if(ft_strrchr("10CPE", data->map.matrix[i][f]) == NULL)
-				{
-					perror("invalid map");
-					ffree(data);
-					exit(1);
-				}
-			if(data->map.matrix[0][f] != '1'
-				|| data->map.matrix[i][0] != '1'
-					// || data->map.matrix[i][data->map.line] != '1'
-					// 	|| data->map.matrix[x][f] != '1'
-						)
-			{
-				ft_printf(">>>>>%c\n", data->map.matrix[0][f]);
-				perror("invalid map");
-				ffree(data);
-				exit(1);
-			}
-			f++;
-		}
-		f = 0;
-		i++;
-	}
-}
 
 void draw_walls(t_so_long *data, int width, int height)
 {
@@ -93,41 +71,30 @@ void draw_walls(t_so_long *data, int width, int height)
 
 	x = 0;
 	y = 0;
-
 	mlx_image_to_window(data->mlx, data->images.background, 0, 0);
-	mlx_resize_image(data->images.background, width,  height);
-	mlx_resize_image(data->images.wall, 64,  64);
-
-// works, but
-	while(x != data->map.column + 1)
+	while(data->map.matrix[x])
 	{
-		if(x == 1 || x == data->map.column)
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-		// else if(x == 1 || x == data->map.line)
-			// mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		else if(y == 1 || y == data->map.line)
-			mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH - 64, y * HEIGHT - 64);
-		if(++y > data->map.line)
+		while(data->map.matrix[x][y])
 		{
-			y = 1;
-			x++;
-			// ft_putchar_fd('\n',1);
+			if(data->map.matrix[x][y] == '1')
+				mlx_image_to_window(data->mlx, data->images.wall, y * width, x * height );
+			if(data->map.matrix[x][y] == 'C')
+				mlx_image_to_window(data->mlx, data->images.gift, y * width, x * height );
+			if(data->map.matrix[x][y] == 'P')
+				mlx_image_to_window(data->mlx, data->images.jack, y * width, x * height );
+			if(data->map.matrix[x][y] == 'C')
+				mlx_image_to_window(data->mlx, data->images.gift, y * width, x * height );
+			if(data->map.matrix[x][y] == 'E')
+				mlx_image_to_window(data->mlx, data->images.tree, y * width, x * height );
+			y++;
 		}
+		y = 0;
+		x++;
 	}
-	// while(data->map.matrix[x])
-	// {
-	// 	while(data->map.matrix[x][y] && (data->map.matrix[x][y]) == '1')
-	// 	{
-	// 		mlx_image_to_window(data->mlx, data->images.wall, x * WIDTH  - 64, y * HEIGHT - 64);
-	// 		y++;
-	// 	}
-	// 	y = 0;
-	// 	x++;
-	// }
 }
 
 
-void create_image(t_so_long *data,mlx_image_t **image, char *path, int width, int height)
+void create_image(t_so_long *data,mlx_image_t **image, char *path)
 {
 	mlx_texture_t	*texture;
 

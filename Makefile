@@ -15,7 +15,7 @@ CFLAGS =
 # -pedantic -Wconversion -g3 -DDEBUG
 # CFLAGS = -Wall -Wextra -Werror
 INC = -I ./srcs/ -I ./MLX42/include/MLX42   
-MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -g
+MLXFLAGS = $(MLX) $(INC) -ldl -lglfw -pthread -lm -g 
 
 OBJS = $(FILES:%.c=%.o)
 
