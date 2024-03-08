@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:13:11 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/06 21:01:47 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/03/07 20:01:22 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void init_game(t_so_long *data)
 	int	height;
 	int width;
 
+	data->moves = 0;
 	width = data->map.column * 64;
 	height = data->map.line * 64;
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
