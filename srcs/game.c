@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:13:11 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/07 20:01:22 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:20:24 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void init_game(t_so_long *data)
 	mlx_resize_image(data->images.gift, 64, 64);
 	mlx_resize_image(data->images.wall, 64, 64);
 	mlx_resize_image(data->images.tree, 0, 0);
+	check_walls(data);
 	draw_walls(data, 64, 64);
 	mlx_key_hook(data->mlx, ft_hook, data);
 	mlx_loop(data->mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/07 19:59:42 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/13 22:20:35 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define GIFT "./assets/gift.png"
 # define TREE "./assets/tree.png"
 
-// a ordem da declaração tbm importa aqui, se o map estiver embaixo,	n irá funcionar
+// a ordem da declaração tbm importa aqui, se o map estiver embaixo,n irá funcionar
 typedef struct s_map
 {
 	char		**matrix;
@@ -57,6 +57,17 @@ typedef struct s_images
 	mlx_image_t	*tree;
 }				t_images;
 
+
+typedef struct s_numbers
+{
+	int	background;
+	int	wall;
+	int	portal;
+	int	jack;
+	int	gift;
+	int	tree;
+}				t_numbers;
+
 typedef struct s_so_long
 {
 	int			fd;
@@ -65,6 +76,7 @@ typedef struct s_so_long
 	t_map		map;
 	t_images	images;
 	int			moves;
+	t_numbers	numbers;
 }				t_so_long;
 
 // functions
@@ -77,4 +89,7 @@ void	count_x_y(t_so_long *data);
 void	draw_walls(t_so_long *data, int width, int height);
 void	create_image(t_so_long *data, mlx_image_t **image, char *path);
 void	my_erros(t_so_long *data, char *message);
+void	count_c(char c,t_so_long *data);
+void	b_zero(t_so_long *data);
+void	check_walls(t_so_long *data);
 #endif
