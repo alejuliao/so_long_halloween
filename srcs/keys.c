@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keys.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:50:30 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/15 22:47:53 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/03/16 10:38:47 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_hook(mlx_key_data_t key, void *param)
 {
 	t_so_long	*data;
 
-	data = (t_so_long *)param; 
+	data = (t_so_long *)param;
 	// refazer - verificar se é parede ou nao - refazer as keys
 	if (key.key == MLX_KEY_ESCAPE)
 		my_erros(data, 1,"You leave the presents to Sandy Claws ");

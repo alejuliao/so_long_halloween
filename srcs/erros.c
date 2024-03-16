@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   erros.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
+/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:04:44 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/15 22:43:28 by alexandreju      ###   ########.fr       */
+/*   Updated: 2024/03/16 10:38:38 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	my_erros(t_so_long *data, int mlx_valid, char *message)
 	ffree(data);
 	if(mlx_valid)
 	{
-		mlx_terminate(data->mlx);	
+		mlx_terminate(data->mlx);
 		exit(0);
 	}
 	else
-	{	
+	{
 			exit(1);
 	}
 }
