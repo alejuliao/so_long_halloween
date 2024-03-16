@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   erros.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/03 14:04:44 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/13 21:54:14 by laj              ###   ########.fr       */
+/*   Created: 2024/03/03 14:04:44 by ajuliao-          #+#    #+#             */
+/*   Updated: 2024/03/15 22:43:28 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,17 @@ void	ffree(t_so_long *data)
 	free(data->map.matrix);
 }
 
-void	my_erros(t_so_long *data, char *message)
+void	my_erros(t_so_long *data, int mlx_valid, char *message)
 {
 	ft_printf("%s\n", message);
 	ffree(data);
-	if(data->mlx != NULL)
-		mlx_terminate(data->mlx);
-	exit(0);
+	if(mlx_valid)
+	{
+		mlx_terminate(data->mlx);	
+		exit(0);
+	}
+	else
+	{	
+			exit(1);
+	}
 }

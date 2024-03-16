@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 17:40:26 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/13 22:20:35 by laj              ###   ########.fr       */
+/*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
+/*   Updated: 2024/03/15 22:49:03 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	init_game(t_so_long *data);
 void	count_x_y(t_so_long *data);
 void	draw_walls(t_so_long *data, int width, int height);
 void	create_image(t_so_long *data, mlx_image_t **image, char *path);
-void	my_erros(t_so_long *data, char *message);
-void	count_c(char c,t_so_long *data);
+void	my_erros(t_so_long *data, int mlx_valid, char *message);
+void	count_c(char c, t_so_long *data);
 void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
 #endif

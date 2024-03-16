@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: alexandrejuliao <alexandrejuliao@studen    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/11 20:09:10 by alexandreju       #+#    #+#             */
-/*   Updated: 2024/03/13 22:24:20 by laj              ###   ########.fr       */
+/*   Created: 2024/02/11 20:09:10 by ajuliao-          #+#    #+#             */
+/*   Updated: 2024/03/15 22:45:48 by alexandreju      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	b_zero(t_so_long *data)
 {
-		data->numbers.wall = 0;
-		data->numbers.portal = 0;
-		data->numbers.jack = 0;
-		data->numbers.gift = 0;
+	data->numbers.wall = 0;
+	data->numbers.portal = 0;
+	data->numbers.jack = 0;
+	data->numbers.gift = 0;
 }
 
 void	read_map(t_so_long *data, char *filen)
@@ -36,47 +36,46 @@ void	read_map(t_so_long *data, char *filen)
 		map = temp;
 		free(line);
 	}
-	data->map.matrix = ft_split(map,'\n');
+	data->map.matrix = ft_split(map, '\n');
 	free(map);
 	count_x_y(data);
-	int i = 0;// retirar depois
-	while (data->map.matrix[i]) // retirar depois
-		ft_printf(">> %s\n",data->map.matrix[i++]);// retirar depois
+	int i = 0;                                       // retirar depois
+	while (data->map.matrix[i])                      // retirar depois
+		ft_printf(">> %s\n", data->map.matrix[i++]); // retirar depois
 	close(data->fd);
 }
 
-
-void count_x_y(t_so_long *data)
+void	count_x_y(t_so_long *data)
 {
 	int	lines;
 	int	columns;
 	int	f;
 
-	f=0;
+	f = 0;
 	lines = 0;
 	b_zero(data);
 	columns = ft_strlen(data->map.matrix[lines]);
-	while(data->map.matrix[lines])
+	while (data->map.matrix[lines])
 	{
-		while(data->map.matrix[lines][f])
+		while (data->map.matrix[lines][f])
 		{
-			if(ft_strrchr("10CPE", data->map.matrix[lines][f]) == NULL)
-				my_erros(data, "Invalid map");
+			if (ft_strrchr("10CPE", data->map.matrix[lines][f]) == NULL)
+				my_erros(data, 0, "Invalid map");
 			count_c(data->map.matrix[lines][f], data);
 			f++;
 		}
-		f=0;
+		f = 0;
 		lines++;
 	}
 	if (lines == columns)
-		my_erros(data, "Invalid map");
+		my_erros(data, 0, "Invalid map");
 	data->map.line = lines;
 	data->map.column = columns;
 	// ft_printf("%d",data->numbers.gift);
-
-	if(data->numbers.wall < 12 || data->numbers.portal != 1
-		||	data->numbers.jack != 1 || data->numbers.gift < 1)
-		my_erros(data, "Something wrong with map!");
+	if (data->numbers.wall < 12 || data->numbers.portal != 1
+		|| data->numbers.jack != 1 || data->numbers.gift < 1)
+		my_erros(data, 0, "Something wrong with map!");
+	check_walls(data);
 }
 void	check_walls(t_so_long *data)
 {
@@ -84,60 +83,60 @@ void	check_walls(t_so_long *data)
 	int	columns;
 	int	i;
 
-	i=0;
+	i = 0;
 	lines = data->map.line;
 	columns = data->map.column;
-//refazer
-	while(lines > i)
+	// refazer
+	while (columns > i)
 	{
-		if(data->map.matrix[0][i] != '1'
-			|| data->map.matrix[lines -1][i] != '1')
-			my_erros(data, "The map missing wall");
+		if (data->map.matrix[0][i] != '1' || data->map.matrix[lines
+			- 1][i] != '1')
+			my_erros(data, 0, "The map missing wall");
 		i++;
 	}
 	i = 0;
-	while(data->map.matrix[0][i] &&  data->map.matrix[columns -1][i])
+	while (lines > i)
 	{
-		if(data->map.matrix[0][i] != '1'
-			|| data->map.matrix[columns -1][i] != '1')
-			my_erros(data, "The map missing wall");
+		if (data->map.matrix[i][0] != '1' || data->map.matrix[i][columns
+			- 1] != '1')
+			my_erros(data, 0, "The map missing wall");
 		i++;
 	}
 }
 
-void	count_c(char c,t_so_long *data)
+void	count_c(char c, t_so_long *data)
 {
-	if(c == '1')
+	if (c == '1')
 		data->numbers.wall++;
-	if(c == 'E')
+	if (c == 'E')
 		data->numbers.portal++;
-	if(c == 'P')
+	if (c == 'P')
 		data->numbers.jack++;
-	if(c == 'C')
+	if (c == 'C')
 		data->numbers.gift++;
 }
-void draw_walls(t_so_long *data, int width, int height)
+void	draw_walls(t_so_long *data, int w, int h)
 {
 	int	x;
-	int y;
+	int	y;
 
 	x = 0;
 	y = 0;
 	mlx_image_to_window(data->mlx, data->images.background, 0, 0);
-	while(data->map.matrix[x])
+	while (data->map.matrix[x])
 	{
-		while(data->map.matrix[x][y])
+		while (data->map.matrix[x][y])
 		{
-			if(data->map.matrix[x][y] == '1')
-				mlx_image_to_window(data->mlx, data->images.wall, y * width, x * height );
-			if(data->map.matrix[x][y] == 'C')
-				mlx_image_to_window(data->mlx, data->images.gift, y * width, x * height );
-			if(data->map.matrix[x][y] == 'P')
-				mlx_image_to_window(data->mlx, data->images.jack, y * width, x * height );
-			if(data->map.matrix[x][y] == 'C')
-				mlx_image_to_window(data->mlx, data->images.gift, y * width, x * height );
-			if(data->map.matrix[x][y] == 'E')
-				mlx_image_to_window(data->mlx, data->images.tree, y * width, x * height );
+			if (data->map.matrix[x][y] == '1')
+				mlx_image_to_window(data->mlx, data->images.wall, y * w, x * h);
+			if (data->map.matrix[x][y] == 'C')
+				mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
+			if (data->map.matrix[x][y] == 'P')
+				mlx_image_to_window(data->mlx, data->images.jack, y * w, x * h);
+			if (data->map.matrix[x][y] == 'C')
+				mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
+			if (data->map.matrix[x][y] == 'E')
+				mlx_image_to_window(data->mlx, data->images.tree, y * w, x * h);
 			y++;
 		}
 		y = 0;
@@ -145,10 +144,7 @@ void draw_walls(t_so_long *data, int width, int height)
 	}
 }
 
-
-
-
-void create_image(t_so_long *data,mlx_image_t **image, char *path)
+void	create_image(t_so_long *data, mlx_image_t **image, char *path)
 {
 	mlx_texture_t	*texture;
 
