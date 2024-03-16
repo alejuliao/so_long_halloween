@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 10:38:31 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:18:52 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,9 @@ void	init_game(t_so_long *data);
 void	count_x_y(t_so_long *data);
 void	draw_walls(t_so_long *data, int width, int height);
 void	create_image(t_so_long *data, mlx_image_t **image, char *path);
-void	my_erros(t_so_long *data, int mlx_valid, char *message);
+void	my_errors(t_so_long *data, int mlx_valid, char *message);
 void	count_c(char c, t_so_long *data);
 void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
+void	no_wall(int	position, t_so_long *data);
 #endif

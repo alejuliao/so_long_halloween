@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 10:38:44 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/16 14:26:56 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,11 @@ void	read_map(t_so_long *data, char *filen)
 		map = temp;
 		free(line);
 	}
+	if(ft_strlen(ft_strtrim(map, "\n")) == 0)
+	{
+		free(map);
+		my_errors(data, 0, "Empty map");
+	}
 	data->map.matrix = ft_split(map, '\n');
 	free(map);
 	count_x_y(data);
@@ -60,7 +65,7 @@ void	count_x_y(t_so_long *data)
 		while (data->map.matrix[lines][f])
 		{
 			if (ft_strrchr("10CPE", data->map.matrix[lines][f]) == NULL)
-				my_erros(data, 0, "Invalid map");
+				my_errors(data, 0, "Invalid map");
 			count_c(data->map.matrix[lines][f], data);
 			f++;
 		}
@@ -68,13 +73,12 @@ void	count_x_y(t_so_long *data)
 		lines++;
 	}
 	if (lines == columns)
-		my_erros(data, 0, "Invalid map");
+		my_errors(data, 0, "Invalid map");
 	data->map.line = lines;
 	data->map.column = columns;
-	// ft_printf("%d",data->numbers.gift);
 	if (data->numbers.wall < 12 || data->numbers.portal != 1
 		|| data->numbers.jack != 1 || data->numbers.gift < 1)
-		my_erros(data, 0, "Something wrong with map!");
+		my_errors(data, 0, "Something wrong with map!");
 	check_walls(data);
 }
 void	check_walls(t_so_long *data)
@@ -89,17 +93,17 @@ void	check_walls(t_so_long *data)
 	// refazer
 	while (columns > i)
 	{
-		if (data->map.matrix[0][i] != '1' || data->map.matrix[lines
-			- 1][i] != '1')
-			my_erros(data, 0, "The map missing wall");
+		if (data->map.matrix[0][i] != '1'
+			|| data->map.matrix[lines - 1][i] != '1')
+			my_errors(data, 0, "The map missing wall");
 		i++;
 	}
 	i = 0;
 	while (lines > i)
 	{
-		if (data->map.matrix[i][0] != '1' || data->map.matrix[i][columns
-			- 1] != '1')
-			my_erros(data, 0, "The map missing wall");
+		if (data->map.matrix[i][0] != '1'
+			|| data->map.matrix[i][columns - 1] != '1')
+			my_errors(data, 0, "The map missing wall");
 		i++;
 	}
 }

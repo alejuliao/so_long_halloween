@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:13:11 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 10:38:41 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/16 15:27:40 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_game(t_so_long *data)
 {
-	mlx_texture_t	*logo;
+	mlx_texture_t	*logo; //colocar na lista
 	int				height;
 	int				width;
 
@@ -22,8 +22,8 @@ void	init_game(t_so_long *data)
 	width = data->map.column * 64;
 	height = data->map.line * 64;
 	data->mlx = mlx_init(width, height, "The Nightmare Before Christmas", true);
-	logo = mlx_load_png(PUMPKIN);
-	mlx_set_icon(data->mlx, logo);
+	logo = mlx_load_png(PUMPKIN); //colocar na lista
+	mlx_set_icon(data->mlx, logo); //colocar na lista
 	create_image(data, &data->images.background, BACKGROUND);
 	create_image(data, &data->images.wall, WALL);
 	create_image(data, &data->images.jack, JACK);

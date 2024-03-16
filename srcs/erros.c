@@ -6,7 +6,7 @@
 /*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 14:04:44 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 10:38:38 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/16 12:02:41 by ajuliao-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ void	ffree(t_so_long *data)
 	free(data->map.matrix);
 }
 
-void	my_erros(t_so_long *data, int mlx_valid, char *message)
+void	my_errors(t_so_long *data, int mlx_valid, char *message)
 {
 	ft_printf("%s\n", message);
-	ffree(data);
-	if(mlx_valid)
+	if(data->map.matrix != NULL)
+		ffree(data);
+	if(mlx_valid == 1)
 	{
 		mlx_terminate(data->mlx);
 		exit(0);
 	}
 	else
 	{
-			exit(1);
+		exit(1);
 	}
 }
