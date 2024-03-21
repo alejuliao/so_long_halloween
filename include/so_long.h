@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 15:18:52 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/20 22:35:48 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,7 @@ void	my_errors(t_so_long *data, int mlx_valid, char *message);
 void	count_c(char c, t_so_long *data);
 void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
-void	no_wall(int	position, t_so_long *data);
+void	move(int	position_x, int position_y, t_so_long *data);
+int		check_walls(t_so_long *core, int x, int y);
+
 #endif
