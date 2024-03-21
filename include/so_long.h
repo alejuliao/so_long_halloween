@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/20 22:35:48 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/20 22:36:44 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ void	count_c(char c, t_so_long *data);
 void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
 void	move(int	position_x, int position_y, t_so_long *data);
-int		check_walls(t_so_long *core, int x, int y);
+int		check_wall(t_so_long *core, int x, int y);
 
 #endif

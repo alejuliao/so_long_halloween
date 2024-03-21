@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:50:30 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/20 22:35:48 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/20 22:36:51 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	move(int position_x, int position_y, t_so_long *data)
 	i = 0;
 	x = data->images.jack->instances[0].x + position_x;
 	y = data->images.jack->instances[0].y + position_y;
-	if (check_walls(data, x, y))
+	if (check_wall(data, x, y))
 	{
 		data->images.jack->instances[0].x = x;
 		data->images.jack->instances[0].y = y;
@@ -65,7 +65,7 @@ void	move(int position_x, int position_y, t_so_long *data)
 }
 
 
-int	check_walls(t_so_long *data, int x, int y)
+int	check_wall(t_so_long *data, int x, int y)
 {
 	int	wall_x;
 	int	wall_y;
