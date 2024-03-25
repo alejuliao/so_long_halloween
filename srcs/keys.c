@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:50:30 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/20 22:36:51 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/24 14:47:54 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,9 @@ void	ft_hook(mlx_key_data_t key, void *param)
 	if (key.key == MLX_KEY_ESCAPE)
 		my_errors(data, 1,"You leave the presents to Sandy Claws ");
 	// refazer - verificar se é parede ou nao - refazer as keys
-	if ((key.key == MLX_KEY_W || key.key == MLX_KEY_UP)
-		&& (key.action == MLX_REPEAT || key.action == MLX_PRESS))
+	if ((key.key == MLX_KEY_UP || key.key == MLX_KEY_W)
+		&& key.action == MLX_PRESS)
 	{
-		// ft_printf(">>Y:%d",data->images.jack->instances[0].y /64);
-		// ft_printf(">>X:%d",data->images.jack->instances[0].x /64);
 		move(0, -64, data);
 	}
 	if ((key.key == MLX_KEY_S || key.key == MLX_KEY_DOWN)
@@ -43,9 +41,9 @@ void	ft_hook(mlx_key_data_t key, void *param)
 		move(+64, 0, data);
 
 	}
-	// data->moves = data->moves + 1;
+	data->moves = data->moves + 1;
 	// refazer - contador
-	// ft_printf("%d\n", data->moves);
+	ft_printf("%d\n", data->moves);
 }
 void	move(int position_x, int position_y, t_so_long *data)
 {
@@ -58,12 +56,27 @@ void	move(int position_x, int position_y, t_so_long *data)
 	y = data->images.jack->instances[0].y + position_y;
 	if (check_wall(data, x, y))
 	{
+		check_gift(data, x, y);
 		data->images.jack->instances[0].x = x;
 		data->images.jack->instances[0].y = y;
 	}
 
 }
-
+int	check_gift(t_so_long *data, int x, int y)
+{
+		if(data->map.matrix[y/64][x/64] == 'C')
+		{
+			data->images.gift->instances[1].enabled = false;
+			ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
+			data->map.matrix[y/64][x/64] == '0';
+			ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
+			data->numbers.gift--;
+			// mlx_image_to_window(data->mlx, data->images.tree, x , y);
+		}
+		if(data->map.matrix[y/64][x/64] == 'E' && data->numbers.gift < 1)
+			my_errors(data, 0, "win");
+		return(0);
+}
 
 int	check_wall(t_so_long *data, int x, int y)
 {
@@ -71,12 +84,13 @@ int	check_wall(t_so_long *data, int x, int y)
 	int	wall_y;
 	int	i;
 
-	i = -1;
-	while (data->numbers.wall > ++i)
+	i = 0;
+	while (data->numbers.wall > i++)
 	{
+
 		wall_x = data->images.wall->instances[i].x;
 		wall_y = data->images.wall->instances[i].y;
-		if (x == wall_x && y == wall_y)
+		if (wall_x == x && wall_y == y)
 			return (0);
 	}
 	return (1);
