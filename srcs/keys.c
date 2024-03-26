@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 20:50:30 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/24 14:47:54 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/25 22:09:33 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,66 @@ void	move(int position_x, int position_y, t_so_long *data)
 	}
 
 }
-int	check_gift(t_so_long *data, int x, int y)
+void	check_gift(t_so_long *data, int x, int y)
 {
-		if(data->map.matrix[y/64][x/64] == 'C')
-		{
-			data->images.gift->instances[1].enabled = false;
-			ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
-			data->map.matrix[y/64][x/64] == '0';
-			ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
-			data->numbers.gift--;
-			// mlx_image_to_window(data->mlx, data->images.tree, x , y);
-		}
-		if(data->map.matrix[y/64][x/64] == 'E' && data->numbers.gift < 1)
-			my_errors(data, 0, "win");
-		return(0);
-}
+	int	i;
+	int	x_potion;
+	int	y_potion;
 
+	i = -1;
+
+	while (i < data->numbers.gift)
+	{
+		x_potion = data->images.gift[i].image->instances[0].x;
+		y_potion = data->images.gift[i].image->instances[0].y;
+		if (x == x_potion && y == y_potion)
+		{
+			if (data->images.gift[i].image->instances->enabled == 1)
+			{
+				data->images.gift[i].image->instances[0].enabled = 0;
+				data->numbers.gift_img--;
+			}
+			if (data->numbers.gift_img == 0)
+				data->images.portal->enabled = 1;
+			return;
+		}
+		i++;
+	}
+return;
+	// 	int	i;
+
+	// i = 0;
+	// while (i < data->numbers.gift)
+	// {
+	// 	if ((data->images.gift.image->instances[i].x == x
+	// 			&& data->images.gift.image->instances[i].y == y)
+	// 		&& data->images.gift.image->instances[i].enabled)
+	// 	{
+	// 			data->images.gift.image->instances[i].enabled = false;
+	// 			data->numbers.gift--;
+	// 	}
+	// 	i++;
+	// }
+	// if(data->map.matrix[y/64][x/64] == 'E' && data->numbers.gift < 1)
+	// 	my_errors(data, 0, "win");
+	// return (0);
+		// if(data->map.matrix[y/64][x/64] == 'C')
+		// {
+		// 	data->images.gift->instances[1].enabled = false;
+		// 	ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
+		// 	data->map.matrix[y/64][x/64] == '0';
+		// 	ft_printf("antes%c\n", data->map.matrix[y/64][x/64]);
+		// 	data->numbers.gift--;
+		// 	// mlx_image_to_window(data->mlx, data->images.tree, x , y);
+		// }
+}
+void	render_gift(t_so_long *data, int x, int y, int *value)
+{
+	create_image(data, &data->images.gift[*value].image, GIFT);
+	mlx_image_to_window(data->mlx, \
+	data->images.gift[*value].image, x * 64, y * 64);
+	(*value)++;
+}
 int	check_wall(t_so_long *data, int x, int y)
 {
 	int	wall_x;

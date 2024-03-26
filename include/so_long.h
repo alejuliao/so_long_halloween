@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/23 21:15:31 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/25 22:07:11 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,14 @@
 # define GIFT "./assets/gift.png"
 # define TREE "./assets/tree.png"
 
+
+typedef struct s_gift
+{
+	mlx_texture_t	*texture;
+	mlx_image_t		*image;
+}				t_gift;
+
+
 // a ordem da declaração tbm importa aqui, se o map estiver embaixo,n irá funcionar
 typedef struct s_map
 {
@@ -53,8 +61,8 @@ typedef struct s_images
 	mlx_image_t	*wall;
 	mlx_image_t	*portal;
 	mlx_image_t	*jack;
-	mlx_image_t	*gift;
 	mlx_image_t	*tree;
+	t_gift		gift[1000];
 }				t_images;
 
 
@@ -66,6 +74,7 @@ typedef struct s_numbers
 	int	jack;
 	int	gift;
 	int	tree;
+	int	gift_img;
 }				t_numbers;
 
 typedef struct s_so_long
@@ -94,5 +103,7 @@ void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
 void	move(int	position_x, int position_y, t_so_long *data);
 int		check_wall(t_so_long *core, int x, int y);
-int		check_gift(t_so_long *data, int x, int y);
+void		check_gift(t_so_long *data, int x, int y);
+void	render_gift(t_so_long *data, int x, int y, int *value);
+
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   maps.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajuliao- <ajuliao-@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/16 14:26:56 by ajuliao-         ###   ########.fr       */
+/*   Updated: 2024/03/25 22:10:30 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	b_zero(t_so_long *data)
 	data->numbers.portal = 0;
 	data->numbers.jack = 0;
 	data->numbers.gift = 0;
+	data->numbers.gift_img = 0;
+
 }
 
 void	read_map(t_so_long *data, char *filen)
@@ -117,7 +119,10 @@ void	count_c(char c, t_so_long *data)
 	if (c == 'P')
 		data->numbers.jack++;
 	if (c == 'C')
+	{
 		data->numbers.gift++;
+		data->numbers.gift_img++;
+	}
 }
 void	draw_walls(t_so_long *data, int w, int h)
 {
@@ -134,11 +139,10 @@ void	draw_walls(t_so_long *data, int w, int h)
 			if (data->map.matrix[x][y] == '1')
 				mlx_image_to_window(data->mlx, data->images.wall, y * w, x * h);
 			if (data->map.matrix[x][y] == 'C')
-				mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
+				render_gift(data, y , x , &data->numbers.gift_img);
+				// mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
 			if (data->map.matrix[x][y] == 'P')
 				mlx_image_to_window(data->mlx, data->images.jack, y * w, x * h);
-			if (data->map.matrix[x][y] == 'C')
-				mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
 			if (data->map.matrix[x][y] == 'E')
 				mlx_image_to_window(data->mlx, data->images.tree, y * w, x * h);
 			y++;
