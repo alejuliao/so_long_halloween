@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 18:13:11 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/25 21:53:20 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/26 19:41:25 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void	init_game(t_so_long *data)
 	create_image(data, &data->images.background, BACKGROUND);
 	create_image(data, &data->images.wall, WALL);
 	create_image(data, &data->images.jack, JACK);
-	create_image(data, &data->images.gift->image, GIFT);
+	create_image(data, &data->gift->image, GIFT);
 	create_image(data, &data->images.tree, TREE);
 	mlx_resize_image(data->images.background, width, height);
 	mlx_resize_image(data->images.jack, 0, 64);
-	mlx_resize_image(data->images.gift->image, 64, 64);
+	mlx_resize_image(data->gift->image, 64, 64);
 	mlx_resize_image(data->images.wall, 64, 64);
 	mlx_resize_image(data->images.tree, 0, 0);
 	draw_walls(data, 64, 64);

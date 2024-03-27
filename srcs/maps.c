@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:09:10 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/25 22:10:30 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/26 20:34:06 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	b_zero(t_so_long *data)
 	data->numbers.jack = 0;
 	data->numbers.gift = 0;
 	data->numbers.gift_img = 0;
+
 
 }
 
@@ -121,13 +122,14 @@ void	count_c(char c, t_so_long *data)
 	if (c == 'C')
 	{
 		data->numbers.gift++;
-		data->numbers.gift_img++;
+		// data->numbers.gift_img++;
 	}
 }
 void	draw_walls(t_so_long *data, int w, int h)
 {
 	int	x;
 	int	y;
+	int	i;
 
 	x = 0;
 	y = 0;
@@ -140,7 +142,6 @@ void	draw_walls(t_so_long *data, int w, int h)
 				mlx_image_to_window(data->mlx, data->images.wall, y * w, x * h);
 			if (data->map.matrix[x][y] == 'C')
 				render_gift(data, y , x , &data->numbers.gift_img);
-				// mlx_image_to_window(data->mlx, data->images.gift, y * w, x * h);
 			if (data->map.matrix[x][y] == 'P')
 				mlx_image_to_window(data->mlx, data->images.jack, y * w, x * h);
 			if (data->map.matrix[x][y] == 'E')

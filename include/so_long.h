@@ -6,7 +6,7 @@
 /*   By: laj <laj@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 17:40:26 by ajuliao-          #+#    #+#             */
-/*   Updated: 2024/03/25 22:07:11 by laj              ###   ########.fr       */
+/*   Updated: 2024/03/26 20:29:42 by laj              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_images
 	mlx_image_t	*portal;
 	mlx_image_t	*jack;
 	mlx_image_t	*tree;
-	t_gift		gift[1000];
 }				t_images;
 
 
@@ -86,6 +85,7 @@ typedef struct s_so_long
 	t_images	images;
 	int			moves;
 	t_numbers	numbers;
+	t_gift		gift[1000];
 }				t_so_long;
 
 // functions
@@ -103,7 +103,7 @@ void	b_zero(t_so_long *data);
 void	check_walls(t_so_long *data);
 void	move(int	position_x, int position_y, t_so_long *data);
 int		check_wall(t_so_long *core, int x, int y);
-void		check_gift(t_so_long *data, int x, int y);
+void	check_gift(t_so_long *data, int x, int y);
 void	render_gift(t_so_long *data, int x, int y, int *value);
 
 #endif
